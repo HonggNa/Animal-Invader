@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.animalkilling.SceneController">
+   <children>
+      <ImageView fitHeight="650.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/other/background5.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="497.0" fitWidth="935.0" layoutX="134.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/content/container.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="388.0" fitWidth="726.0" layoutX="227.0" layoutY="-101.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/content/instruction.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="backImgView" fitHeight="42.0" fitWidth="67.0" layoutX="1039.0" layoutY="19.0" onMouseClicked="#switchtoMenu" onMouseEntered="#changeBackImg" onMouseExited="#changeBackImg" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/content/back1.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="instructionContent" fitHeight="477.0" fitWidth="900.0" layoutX="149.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/content/instructioncontent1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="nextButton" fitHeight="53.0" fitWidth="77.0" layoutX="939.0" layoutY="502.0" onMouseClicked="#nextPage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/button/next.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+   </children>
+</AnchorPane>
