@@ -108,9 +108,9 @@ public class GameController extends SceneController{
                 timeline.play();
             } else {
                 timeline.pause();
-                gc.setFont(Font.loadFont(getClass().getResource("font/upheavtt.ttf").toExternalForm(), 50));
+                gc.setFont(Font.loadFont(getClass().getResource("font/upheavtt.ttf").toExternalForm(), 100));
                 gc.setTextAlign(TextAlignment.CENTER);
-                gc.setFill(Color.WHITE);
+                gc.setFill(Color.BLACK);
                 gc.fillText("PAUSE GAME", MainScene.width / 2, MainScene.height / 2);
             }
         });
@@ -153,8 +153,8 @@ public class GameController extends SceneController{
         // setup background
         gc.drawImage(backgroundImg, 0, 0, MainScene.width, MainScene.height);
         gc.setTextAlign(TextAlignment.LEFT);
-        gc.setFont(Font.loadFont(getClass().getResource("font/upheavtt.ttf").toExternalForm(), 30));
-        gc.setFill(Color.WHITE);
+        gc.setFont(Font.loadFont(getClass().getResource("font/upheavtt.ttf").toExternalForm(), 50));
+        gc.setFill(Color.BLACK);
         gc.fillText("Score: " + score, 50, 20);
         gc.fillText("Lives: " + liveTicks / 2, 50, 40);
 

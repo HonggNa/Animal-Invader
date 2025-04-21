@@ -33,7 +33,7 @@ public class Animal extends Entity {
         // Điều khiển bắn đạn mỗi 30 frame
         if (shootCooldown <= 0) {
             bullets.add(shoot());  // Thêm đạn vào danh sách
-            shootCooldown = 30;    // Reset cooldown (30 frame sau mới bắn lại)
+            shootCooldown = 100;    // Reset cooldown (30 frame sau mới bắn lại)
         } else {
             shootCooldown--;  // Giảm thời gian cooldown
         }
