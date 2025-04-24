@@ -9,9 +9,17 @@ public class Bullet extends Entity {
     boolean remove;
     int speed = 10;
     static final int size = 6;
-
-    public Bullet(int x, int y) {
+    boolean isFromPlayer;
+    public Bullet(int x, int y, boolean isFromPlayer) {
         super(x, y, size, null);
+        this.isFromPlayer = isFromPlayer;
+    }
+    public int getWidth() {
+        return size;
+    }
+
+    public int getHeight() {
+        return size;
     }
 
     public boolean getStatus() {
@@ -24,7 +32,7 @@ public class Bullet extends Entity {
 
     @Override
     public void update() {
-        this.y -= speed;
+        this.y += isFromPlayer ? -speed : speed;
     }
 
     @Override
