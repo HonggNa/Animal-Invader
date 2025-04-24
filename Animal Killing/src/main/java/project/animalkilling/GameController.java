@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
+
 public class GameController extends SceneController{
     Stage stage = MainStage.getInstance().loadStage();
     private final Random RAND = new Random();
@@ -95,6 +96,7 @@ public class GameController extends SceneController{
                             gc.setFill(Color.TRANSPARENT);
                             timeline.play();
                         }
+                        break;
                 }
             }
         });
@@ -106,9 +108,9 @@ public class GameController extends SceneController{
                 timeline.play();
             } else {
                 timeline.pause();
-                gc.setFont(Font.loadFont(getClass().getResource("font/upheavtt.ttf").toExternalForm(), 50));
+                gc.setFont(Font.loadFont(getClass().getResource("font/upheavtt.ttf").toExternalForm(), 100));
                 gc.setTextAlign(TextAlignment.CENTER);
-                gc.setFill(Color.WHITE);
+                gc.setFill(Color.BLACK);
                 gc.fillText("PAUSE GAME", MainScene.width / 2, MainScene.height / 2);
             }
         });
@@ -151,8 +153,8 @@ public class GameController extends SceneController{
         // setup background
         gc.drawImage(backgroundImg, 0, 0, MainScene.width, MainScene.height);
         gc.setTextAlign(TextAlignment.LEFT);
-        gc.setFont(Font.loadFont(getClass().getResource("font/upheavtt.ttf").toExternalForm(), 30));
-        gc.setFill(Color.WHITE);
+        gc.setFont(Font.loadFont(getClass().getResource("font/upheavtt.ttf").toExternalForm(), 50));
+        gc.setFill(Color.BLACK);
         gc.fillText("Score: " + score, 50, 20);
         gc.fillText("Lives: " + liveTicks / 2, 50, 40);
 
@@ -204,6 +206,36 @@ public class GameController extends SceneController{
         // assign total score
         score = playerScore - animalScore;
 
+        // --- Kiểm tra đạn của animal có trúng player không ---
+
+        for (Animal animal : AnimalContainer) {
+            for (Bullet bullet : animal.getBullets()) {
+                if (checkPlayerCollision(player, bullet) && !player.exploding) {
+
+
+                    bullet.setStatus(true); // Đạn bị xóa sau va chạm
+                    liveTicks--;
+
+                    if (liveTicks == 1) {
+                        player.explode(); // Phát nổ nếu gần hết mạng
+                    }
+                }
+            }
+
+            // Xoá các viên đạn đã trúng hoặc ra khỏi màn hình
+            animal.getBullets().removeIf(b -> b.getY() > MainScene.height || b.getStatus());
+        }
+
+
         return player.destroyed || score < 0;
     }
+    private boolean checkPlayerCollision(Player player, Bullet bullet) {
+        return bullet.getX() < player.getX() + player.getWidth() &&
+                bullet.getX() + bullet.getWidth() > player.getX() &&
+                bullet.getY() < player.getY() + player.getHeight() &&
+                bullet.getY() + bullet.getHeight() > player.getY();
+    }
+
 }
+
+
