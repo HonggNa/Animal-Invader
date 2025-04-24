@@ -41,7 +41,7 @@
 | Order |         Name          |     ID      |                  Email                  |                       Github account                        |
 | :---: | :-------------------: | :---------: |:---------------------------------------:| :---------------------------------------------------------: | 
 |   1   | Le Nguyen Thanh Truc | ITITWE22168 |  ITITWE22168@student.hcmiu.edu.vn | [Selena166](https://github.com/Selena166) |
-|   2   | Nguyen Hoang Bao Tran | ITITSB22017 |  ITITSB22017@student.hcmiu.edu.vn | [Btran2404](https://github.com/Btran2404) |
+|   2   | Nguyen Hoang Bao Tran | ITITSB22027 |  ITITSB22027@student.hcmiu.edu.vn | [Btran2404](https://github.com/Btran2404) |
 
 
 <!-- INSTALLATION -->
