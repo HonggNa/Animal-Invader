@@ -117,7 +117,23 @@ public class GameController extends SceneController{
 
         //--Ship movement via mouse--
         ingame.setCursor(Cursor.MOVE);
-        ingame.setOnMouseMoved(e -> mouseX = e.getX());
+        ingame.setOnMouseMoved(e -> {
+            double newX = e.getX() - player.getHeight() / 2;
+            double newY = e.getY() - player.getHeight() / 2;
+
+            //lim above
+            if (newY < MainScene.height - 600){
+                newY = MainScene.heght - 600;
+            }
+            // valid lim
+            if (newY > MainScene.height - player.getHeight()){
+                newY = MainScene.height - player.getHeight();
+            }
+            //lim below
+            if (newY > MainScene.height - 120) {
+                newY = MainScene.height - 120
+            }
+        });
         ingame.setOnMouseClicked(e -> {
             if (bulletContainer.size() < maxShots)
                 bulletContainer.add(player.shoot());
