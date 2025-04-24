@@ -9,7 +9,15 @@ public class Player extends Entity {
         super(x, y, size, img);
     }
     // shoot method for the ship
+    public int getWidth() {
+        return size;
+    }
+
+    public int getHeight() {
+        return size;
+    }
+
     public Bullet shoot() {
-        return new Bullet(x + size / 2 - Bullet.size / 2, y - Bullet.size);
+        return new Bullet(x + size / 2 - Bullet.size / 2, y - Bullet.size, true);
     }
 }
