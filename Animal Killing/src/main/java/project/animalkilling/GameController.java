@@ -123,7 +123,7 @@ public class GameController extends SceneController{
 
             //lim above
             if (newY < MainScene.height - 600){
-                newY = MainScene.heght - 600;
+                newY = MainScene.height - 600;
             }
             // valid lim
             if (newY > MainScene.height - player.getHeight()){
@@ -131,7 +131,7 @@ public class GameController extends SceneController{
             }
             //lim below
             if (newY > MainScene.height - 120) {
-                newY = MainScene.height - 120
+                newY = MainScene.height - 120;
             }
         });
         ingame.setOnMouseClicked(e -> {
