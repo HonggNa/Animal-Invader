@@ -122,17 +122,21 @@ public class GameController extends SceneController{
             double newY = e.getY() - player.getHeight() / 2;
 
             //lim above
-            if (newY < MainScene.height - 600){
-                newY = MainScene.heght - 600;
+            if (newY < MainScene.height - 400){
+                newY = MainScene.height - 400;
             }
             // valid lim
             if (newY > MainScene.height - player.getHeight()){
                 newY = MainScene.height - player.getHeight();
             }
             //lim below
-            if (newY > MainScene.height - 120) {
-                newY = MainScene.height - 120
+            if (newY > MainScene.height - 130) {
+                newY = MainScene.height - 130;
             }
+
+            mouseX = newX = e.getX() - player.getHeight() / 2;
+            player.setX((int) newX);
+            player.setY((int) newY);
         });
         ingame.setOnMouseClicked(e -> {
             if (bulletContainer.size() < maxShots)
