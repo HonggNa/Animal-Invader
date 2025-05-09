@@ -22,7 +22,7 @@ public class Animal extends Entity {
         super.update();
 
         if (!exploding && !destroyed) {
-            y += speed;  // Di chuyển xuống dưới
+            y += speed/3;  // Di chuyển xuống dưới
         }
 
         // Nếu quái vật vượt qua màn hình, đánh dấu bị hủy
