@@ -125,7 +125,7 @@ public class GameController extends SceneController{
             if (newY < MainScene.height - 400){
                 newY = MainScene.height - 400;
             }
-            //valid lim
+            // valid lim
             if (newY > MainScene.height - player.getHeight()){
                 newY = MainScene.height - player.getHeight();
             }
@@ -150,7 +150,7 @@ public class GameController extends SceneController{
 
     //--Game setup--
     private Animal newAnimal() { //function to create a new Animal object
-        int animalSize = playerSize / 3;
+        int animalSize = playerSize /3;
         return new Animal(50 + RAND.nextInt(MainScene.width - 100), 0, animalSize,
                 AnimalImg[RAND.nextInt(AnimalImg.length)]);
     }
@@ -162,26 +162,10 @@ public class GameController extends SceneController{
         liveTicks = 5;
         playerScore = 0;
         animalScore = 0;
-//        IntStream.range(0, maxAnimal).mapToObj(i -> this.newAnimal()).forEach(AnimalContainer::add);
-        shapeAnimal();
+        IntStream.range(0, maxAnimal).mapToObj(i -> this.newAnimal()).forEach(AnimalContainer::add);
         //The IntStream.range() method is used to generate a sequence of integers from 0 to maxAnimal - 1.
         //For each integer in the sequence, a new animal object is created using the newAnimal() method.
         //Then each get added to the animal ArrayList using the forEach() method.
-    }
-
-    private void shapeAnimal() {
-        int startX = 225;
-        int startY = 0;
-        int gap = 15;
-        int size = 64;
-        Image animalImg = AnimalImg[RAND.nextInt(AnimalImg.length)];
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 10; col++) {
-                int x = startX + col * (size + gap);
-                int y = startY + row * (size + gap);
-                AnimalContainer.add(new Animal(x, y, size, animalImg));
-            }
-        }
     }
 
     //--Run Graphics
@@ -235,7 +219,7 @@ public class GameController extends SceneController{
 
         for (int i = AnimalContainer.size() - 1; i >= 0; i--) {
             if (AnimalContainer.get(i).destroyed) {
-                AnimalContainer.remove(i);
+                AnimalContainer.set(i, newAnimal());
             }
         }
 
