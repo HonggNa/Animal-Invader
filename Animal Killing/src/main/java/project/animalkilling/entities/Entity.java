@@ -36,25 +36,8 @@ protected Entity(int x, int y, int size, Image img) {
     public void setY(int y) {
         this.y = y;
     }
-
-    public int getSize() {
-        return this.size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public Image getImg() {
-        return img;
-    }
-
-    public void setImg(Image img) {
-        this.img = img;
-    }
-
     public void update() {
-        if (exploding) destroyed = true;
+        if (exploding) destroyed=true;
     }
 
     public void draw() {
