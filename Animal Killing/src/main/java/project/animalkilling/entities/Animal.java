@@ -12,21 +12,18 @@ public class Animal extends Entity {
 
     private List<Bullet> bullets = new ArrayList<>();  // Danh sách đạn của quái vật
     private int shootCooldown = 0;  // Khoảng thời gian giữa các lần bắn
-    public static List<Animal> animalList = new ArrayList<>();
 
     public Animal(int x, int y, int size, Image img) {
         super(x, y, size, img);
     }
-
 
     @Override
     public void update() {
         super.update();
 
         if (!exploding && !destroyed) {
-                y += speed/3;  // Chỉ rơi nếu không ở vị trí tĩnh
+            y += speed;  // Di chuyển xuống dưới
         }
-
 
         // Nếu quái vật vượt qua màn hình, đánh dấu bị hủy
         if (y > MainScene.height) {
