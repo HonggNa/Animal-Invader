@@ -162,6 +162,7 @@ public class GameController extends SceneController{
         liveTicks = 5;
         playerScore = 0;
         animalScore = 0;
+//        IntStream.range(0, maxAnimal).mapToObj(i -> this.newAnimal()).forEach(AnimalContainer::add);
         shapeAnimal();
         //The IntStream.range() method is used to generate a sequence of integers from 0 to maxAnimal - 1.
         //For each integer in the sequence, a new animal object is created using the newAnimal() method.
