@@ -23,10 +23,14 @@ public class Animal extends Entity {
 
         if (!exploding && !destroyed) {
             y += speed/3;  // Di chuyển xuống dưới
+            x += speed/3;
         }
 
         // Nếu quái vật vượt qua màn hình, đánh dấu bị hủy
         if (y > MainScene.height) {
+            destroyed = true;
+        }
+        if (x > MainScene.width) {
             destroyed = true;
         }
 
