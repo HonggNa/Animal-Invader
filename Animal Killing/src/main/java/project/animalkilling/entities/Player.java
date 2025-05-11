@@ -18,6 +18,6 @@ public class Player extends Entity {
     }
 
     public Bullet shoot() {
-        return new Bullet(x + size / 2 - Bullet.size / 2, y - Bullet.size, true);
+        return new Bullet(x + size / 2 - Bullet.size / 2, y - Bullet.size);
     }
 }

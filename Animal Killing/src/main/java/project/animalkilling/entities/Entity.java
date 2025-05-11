@@ -20,7 +20,15 @@ protected Entity(int x, int y, int size, Image img) {
         this.x = x;
         this.y = y;
     }
+///////////////////////////////////////////////
+    public int getWidth() {
+    return size;
+}
 
+    public int getHeight() {
+        return size;
+    }
+    /////////////////////////////////////////
     public int getX() {
         return this.x;
     }

@@ -10,7 +10,7 @@ import static project.animalkilling.GameController.gc;
 public class Animal extends Entity {
     private final int speed = (GameController.playerScore / 10) + 4;  // Tốc độ di chuyển của quái vật
 
-    private List<Bullet> bullets = new ArrayList<>();  // Danh sách đạn của quái vật
+    private List<AnimalBullet> bullets = new ArrayList<>();  // Danh sách đạn của quái vật
     private int shootCooldown = 0;  // Khoảng thời gian giữa các lần bắn
 
     public Animal(int x, int y, int size, Image img) {
@@ -39,14 +39,14 @@ public class Animal extends Entity {
         }
 
         // Cập nhật tất cả các viên đạn của quái vật
-        for (Bullet b : bullets) {
+        for (AnimalBullet b : bullets) {
             b.update();
         }
     }
 
     // Phương thức bắn đạn
-    public Bullet shoot() {
-        return new Bullet(x + size / 2 - Bullet.size / 2, y + size,false);  // Đạn đi xuống
+    public AnimalBullet shoot() {
+        return new AnimalBullet(x + size / 2 - AnimalBullet.size / 2, y + size);  // Đạn đi xuống
     }
 
     @Override
@@ -56,13 +56,13 @@ public class Animal extends Entity {
         }
 
         // Vẽ các viên đạn của quái vật
-        for (Bullet b : bullets) {
+        for (AnimalBullet b : bullets) {
             b.draw();  // Gọi phương thức draw() của Bullet để vẽ từng viên đạn
         }
     }
 
     // Lấy danh sách các viên đạn của quái vật
-    public List<Bullet> getBullets() {
+    public List<AnimalBullet> getBullets() {
         return bullets;
     }
 }
