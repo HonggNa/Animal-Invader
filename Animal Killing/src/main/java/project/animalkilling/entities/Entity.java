@@ -14,11 +14,11 @@ public abstract class Entity {
     protected int explosionStep = 0;
     protected final Image explosionImg = new Image(GameController.class.getResource("img/other/explosion1.png").toString());
 // constructor
-protected Entity(int x, int y, int size, Image img) {
-        this.img = img;
-        this.size = size;
-        this.x = x;
-        this.y = y;
+    protected Entity(int x, int y, int size, Image img) {
+            this.img = img;
+            this.size = size;
+            this.x = x;
+            this.y = y;
     }
 
     public int getX() {
