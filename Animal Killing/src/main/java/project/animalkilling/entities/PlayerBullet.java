@@ -30,7 +30,7 @@ public class PlayerBullet extends Entity {
 
     @Override
     public void update() {
-        this.y -= speed;
+        this.y -= 3 * speed;
     }
 
     @Override

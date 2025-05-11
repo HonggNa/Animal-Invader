@@ -74,20 +74,25 @@ public class GameController extends SceneController{
 
         Scene ingame = new Scene(new StackPane(canvas));
 
+        //Auto shooting from player
+        Timeline autoShoot = new Timeline(new KeyFrame(Duration.millis(1), e -> {
+            if (!gamePause && PlayerBulletContainer.size() < maxShots){
+                PlayerBulletContainer.add(player.shoot());
+            }
+        }));
+        autoShoot.setCycleCount(Timeline.INDEFINITE);
+        autoShoot.play();
+
         //--Ship shoot via key pressed--
         ingame.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
                 switch (keyEvent.getCode()) {
-                    case A, S:
-                        if (PlayerBulletContainer.size() < maxShots)
-                            //add bullet if current shots array size does not exceed maxShots
-                            PlayerBulletContainer.add(player.shoot());
-                        break;
                     case ESCAPE:
                         if (!gamePause) {
                             gamePause = true;
                             timeline.pause();
+                            autoShoot.pause();
                             gc.setFont(Font.loadFont(getClass().getResource("font/upheavtt.ttf").toExternalForm(), 50));
                             gc.setTextAlign(TextAlignment.CENTER);
                             gc.setFill(Color.WHITE);
@@ -96,6 +101,7 @@ public class GameController extends SceneController{
                             gamePause = false;
                             gc.setFill(Color.TRANSPARENT);
                             timeline.play();
+                            autoShoot.play();
                         }
                         break;
                 }
