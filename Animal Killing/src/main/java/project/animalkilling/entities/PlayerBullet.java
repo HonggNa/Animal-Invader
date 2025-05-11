@@ -4,14 +4,13 @@ package project.animalkilling.entities;
 import javafx.scene.paint.Color;
 import static project.animalkilling.GameController.*;
 
-// instantiating the class 
-public class Bullet extends Entity {
+// instantiating the class
+public class PlayerBullet extends Entity {
     boolean remove;
     int speed = 10;
     static final int size = 6;
-    public Bullet(int x, int y) {
+    public PlayerBullet(int x, int y) {
         super(x, y, size, null);
-
     }
     public int getWidth() {
         return size;

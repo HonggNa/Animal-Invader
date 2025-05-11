@@ -17,15 +17,13 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import project.animalkilling.entities.Animal;
 import project.animalkilling.entities.Player;
-import project.animalkilling.entities.Bullet;
 import project.animalkilling.entities.AnimalBullet;
-import project.animalkilling.entities.Entity;
+import project.animalkilling.entities.PlayerBullet;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.IntStream;
 
 
 public class GameController extends SceneController{
@@ -39,7 +37,8 @@ public class GameController extends SceneController{
     boolean gamePause;
     double mouseX;
     Player player;
-    List<Bullet> bulletContainer;
+    List<AnimalBullet> bulletContainer;
+    List<PlayerBullet> PlayerBulletContainer;
     List<Animal> AnimalContainer;
     Image playerImg = new Image(GameController.class.getResource("img/other/Player.png").toString());
     Image[] AnimalImg = {
@@ -81,9 +80,9 @@ public class GameController extends SceneController{
             public void handle(KeyEvent keyEvent) {
                 switch (keyEvent.getCode()) {
                     case A, S:
-                        if (bulletContainer.size() < maxShots)
+                        if (PlayerBulletContainer.size() < maxShots)
                             //add bullet if current shots array size does not exceed maxShots
-                            bulletContainer.add(player.shoot());
+                            PlayerBulletContainer.add(player.shoot());
                         break;
                     case ESCAPE:
                         if (!gamePause) {
@@ -119,10 +118,30 @@ public class GameController extends SceneController{
 
         //--Ship movement via mouse--
         ingame.setCursor(Cursor.MOVE);
-        ingame.setOnMouseMoved(e -> mouseX = e.getX());
+        ingame.setOnMouseMoved(e -> {
+            double newX = e.getX() - player.getHeight() / 2;
+            double newY = e.getY() - player.getHeight() / 2;
+
+            //lim above
+            if (newY < MainScene.height - 400){
+                newY = MainScene.height - 400;
+            }
+            // valid lim
+            if (newY > MainScene.height - player.getHeight()){
+                newY = MainScene.height - player.getHeight();
+            }
+            //lim below
+            if (newY > MainScene.height - 130) {
+                newY = MainScene.height - 130;
+            }
+
+            mouseX = newX = e.getX() - player.getHeight() / 2;
+            player.setX((int) newX);
+            player.setY((int) newY);
+        });
         ingame.setOnMouseClicked(e -> {
-            if (bulletContainer.size() < maxShots)
-                bulletContainer.add(player.shoot());
+            if (PlayerBulletContainer.size() < maxShots)
+                PlayerBulletContainer.add(player.shoot());
         });
 
         setup();
@@ -132,22 +151,38 @@ public class GameController extends SceneController{
 
     //--Game setup--
     private Animal newAnimal() { //function to create a new Animal object
-        int animalSize = playerSize /3;
+        int animalSize = playerSize / 3;
         return new Animal(50 + RAND.nextInt(MainScene.width - 100), 0, animalSize,
                 AnimalImg[RAND.nextInt(AnimalImg.length)]);
     }
 
     public void setup() {
         bulletContainer = new ArrayList<>();
+        PlayerBulletContainer = new ArrayList<>();
         AnimalContainer = new ArrayList<>();
         player = new Player(MainScene.width / 2, MainScene.height - playerSize - 39, playerSize, playerImg);
         liveTicks = 5;
         playerScore = 0;
         animalScore = 0;
-        IntStream.range(0, maxAnimal).mapToObj(i -> this.newAnimal()).forEach(AnimalContainer::add);
+        shapeAnimal();
         //The IntStream.range() method is used to generate a sequence of integers from 0 to maxAnimal - 1.
         //For each integer in the sequence, a new animal object is created using the newAnimal() method.
         //Then each get added to the animal ArrayList using the forEach() method.
+    }
+
+    private void shapeAnimal() {
+        int startX = 225;
+        int startY = 0;
+        int gap = 15;
+        int size = 34;
+        Image animalImg = AnimalImg[RAND.nextInt(AnimalImg.length)];
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 10; col++) {
+                int x = startX + col * (size + gap);
+                int y = startY + row * (size + gap);
+                AnimalContainer.add(new Animal(x, y, size, animalImg));
+            }
+        }
     }
 
     //--Run Graphics
@@ -176,10 +211,27 @@ public class GameController extends SceneController{
             }
         });
 
-        for (int i = bulletContainer.size() - 1; i >= 0; i--) {
-            Bullet shot = bulletContainer.get(i);
+//        for (int i = bulletContainer.size() - 1; i >= 0; i--) {
+//            Bullet shot = bulletContainer.get(i);
+//            if (shot.getY() < 0 || shot.getStatus()) {
+//                bulletContainer.remove(i);
+//                continue;
+//            }
+//            shot.update();
+//            shot.draw();
+//            for (Animal animal : AnimalContainer) {
+//                if (shot.collide(animal) && !animal.exploding) {
+//                    playerScore += 2;
+//                    animal.explode();
+//                    shot.setStatus(true);
+//                }
+//            }
+//        }
+
+        for (int i = PlayerBulletContainer.size() - 1; i >= 0; i--) {
+            PlayerBullet shot = PlayerBulletContainer.get(i);
             if (shot.getY() < 0 || shot.getStatus()) {
-                bulletContainer.remove(i);
+                PlayerBulletContainer.remove(i);
                 continue;
             }
             shot.update();
@@ -193,6 +245,7 @@ public class GameController extends SceneController{
             }
         }
 
+
         for (Animal animal : AnimalContainer) {
             if (animal.getY() == MainScene.height) {
                 animalScore += 4;
@@ -201,7 +254,7 @@ public class GameController extends SceneController{
 
         for (int i = AnimalContainer.size() - 1; i >= 0; i--) {
             if (AnimalContainer.get(i).destroyed) {
-                AnimalContainer.set(i, newAnimal());
+                AnimalContainer.remove(i);
             }
         }
 
@@ -231,7 +284,7 @@ public class GameController extends SceneController{
 
         return player.destroyed || score < 0;
     }
-    private boolean checkPlayerCollision(Player player, Entity bullet) {
+    private boolean checkPlayerCollision(Player player, AnimalBullet bullet) {
         return bullet.getX() < player.getX() + player.getWidth() &&
                 bullet.getX() + bullet.getWidth() > player.getX() &&
                 bullet.getY() < player.getY() + player.getHeight() &&
