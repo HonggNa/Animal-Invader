@@ -18,6 +18,8 @@ import javafx.util.Duration;
 import project.animalkilling.entities.Animal;
 import project.animalkilling.entities.Player;
 import project.animalkilling.entities.Bullet;
+import project.animalkilling.entities.AnimalBullet;
+import project.animalkilling.entities.Entity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -209,7 +211,7 @@ public class GameController extends SceneController{
         // --- Kiểm tra đạn của animal có trúng player không ---
 
         for (Animal animal : AnimalContainer) {
-            for (Bullet bullet : animal.getBullets()) {
+            for (AnimalBullet bullet : animal.getBullets()) {
                 if (checkPlayerCollision(player, bullet) && !player.exploding) {
 
 
@@ -229,7 +231,7 @@ public class GameController extends SceneController{
 
         return player.destroyed || score < 0;
     }
-    private boolean checkPlayerCollision(Player player, Bullet bullet) {
+    private boolean checkPlayerCollision(Player player, Entity bullet) {
         return bullet.getX() < player.getX() + player.getWidth() &&
                 bullet.getX() + bullet.getWidth() > player.getX() &&
                 bullet.getY() < player.getY() + player.getHeight() &&
