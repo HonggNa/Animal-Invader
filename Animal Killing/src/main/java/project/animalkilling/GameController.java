@@ -176,6 +176,7 @@ public class GameController extends SceneController{
         //Then each get added to the animal ArrayList using the forEach() method.
     }
 
+    //Shaping animal
     private void shapeAnimal() {
         int startX = 225;
         int startY = 0;
@@ -216,23 +217,6 @@ public class GameController extends SceneController{
                 player.explode();
             }
         });
-
-//        for (int i = bulletContainer.size() - 1; i >= 0; i--) {
-//            Bullet shot = bulletContainer.get(i);
-//            if (shot.getY() < 0 || shot.getStatus()) {
-//                bulletContainer.remove(i);
-//                continue;
-//            }
-//            shot.update();
-//            shot.draw();
-//            for (Animal animal : AnimalContainer) {
-//                if (shot.collide(animal) && !animal.exploding) {
-//                    playerScore += 2;
-//                    animal.explode();
-//                    shot.setStatus(true);
-//                }
-//            }
-//        }
 
         for (int i = PlayerBulletContainer.size() - 1; i >= 0; i--) {
             PlayerBullet shot = PlayerBulletContainer.get(i);
@@ -288,7 +272,7 @@ public class GameController extends SceneController{
         }
 
 
-        return player.destroyed || score < 0;
+        return player.destroyed || score < 0 || AnimalContainer.isEmpty();
     }
     private boolean checkPlayerCollision(Player player, AnimalBullet bullet) {
         return bullet.getX() < player.getX() + player.getWidth() &&
