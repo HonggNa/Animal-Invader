@@ -181,7 +181,7 @@ public class GameController extends SceneController{
         int startX = 225;
         int startY = 0;
         int gap = 15;
-        int size = 64;
+        int size = 34;
         Image animalImg = AnimalImg[RAND.nextInt(AnimalImg.length)];
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 10; col++) {
