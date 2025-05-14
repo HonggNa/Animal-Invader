@@ -8,14 +8,20 @@ import java.util.List;
 import static project.animalkilling.GameController.gc;
 import java.util.Random; // Thêm import này
 public class Animal extends Entity {
-    private final int speed = (GameController.playerScore / 10) + 4;  // Tốc độ di chuyển của quái vật
+    private int level;//new
+    private int speed ;//new
 
     private List<AnimalBullet> bullets = new ArrayList<>();  // Danh sách đạn của quái vật
     private int shootCooldown = 0;  // Khoảng thời gian giữa các lần bắn
     private static final Random random = new Random();//new
-    public Animal(int x, int y, int size, Image img) {
+
+    public Animal(int x, int y, int size, Image img, int level) {
         super(x, y, size, img);
+        this.level = level;
+        this.speed = (GameController.playerScore / 10) + 2 + level;
+        double shootRate = 0.1 + level * 0.05;
     }
+
 
     @Override
     public void update() {
@@ -31,14 +37,13 @@ public class Animal extends Entity {
         }
         // Điều khiển bắn đạn mỗi 30 frame
         if (shootCooldown <= 0) {
-            // Xác suất 20% để bắn
-            if (random.nextDouble() < 0.2) {
+            double shootRate = 0.1 + level * 0.05;  // Level 1 = 15%, Level 2 = 20%, Level 3 = 25%
+
+            if (random.nextDouble()<shootRate) {
                 bullets.add(shoot());}
             shootCooldown = 100;    // Reset cooldown (10100 frame sau mới bắn lại)
         }
-        else {
-            shootCooldown--;  // Giảm thời gian cooldown
-        }
+
 
 
 

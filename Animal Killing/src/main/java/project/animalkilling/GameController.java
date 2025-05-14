@@ -31,6 +31,8 @@ public class GameController extends SceneController{
     private final Random RAND = new Random();
     public static int score, playerScore, animalScore;
     public static GraphicsContext gc;
+    public static int currentLevel = 1;      // Level hiện tại (bắt đầu từ 1)
+    public static final int maxLevel = 3;    // Tổng số level trong game
     int liveTicks;
     int maxAnimal = 5, maxShots = maxAnimal * 2;
     int playerSize = 100;
@@ -50,7 +52,6 @@ public class GameController extends SceneController{
             new Image(GameController.class.getResource("img/Animal/xanh.png").toString()),
     };
     Image backgroundImg = new Image(GameController.class.getResource("img/other/background3.png").toString());
-
 
     //--Game Start--
     public void play() {
@@ -158,8 +159,13 @@ public class GameController extends SceneController{
     //--Game setup--
     private Animal newAnimal() { //function to create a new Animal object
         int animalSize = playerSize / 3;
-        return new Animal(50 + RAND.nextInt(MainScene.width - 100), 0, animalSize,
-                AnimalImg[RAND.nextInt(AnimalImg.length)]);
+        return new Animal(
+                50 + RAND.nextInt(MainScene.width - 100), // x
+                0,                                        // y
+                animalSize,                              // size
+                AnimalImg[RAND.nextInt(AnimalImg.length)], // image
+                currentLevel                              // level
+        );
     }
 
     public void setup() {
@@ -170,6 +176,7 @@ public class GameController extends SceneController{
         liveTicks = 5;
         playerScore = 0;
         animalScore = 0;
+        currentLevel = 1; // reset level
         shapeAnimal();
         //The IntStream.range() method is used to generate a sequence of integers from 0 to maxAnimal - 1.
         //For each integer in the sequence, a new animal object is created using the newAnimal() method.
@@ -186,7 +193,7 @@ public class GameController extends SceneController{
             for (int col = 0; col < 10; col++) {
                 int x = startX + col * (size + gap);
                 int y = startY + row * (size + gap);
-                AnimalContainer.add(new Animal(x, y, size, animalImg));
+                AnimalContainer.add(new Animal(x, y, size, animalImg,currentLevel));
             }
         }
     }
@@ -286,7 +293,16 @@ public class GameController extends SceneController{
             // Xoá các viên đạn đã trúng hoặc ra khỏi màn hình
             animal.getBullets().removeIf(b -> b.getY() > MainScene.height || b.getStatus());
         }
-
+// --- Chuyển level nếu đã tiêu diệt hết quái ---
+        if (AnimalContainer.isEmpty()) {
+            if (currentLevel < maxLevel) {
+                currentLevel++;
+                shapeAnimal(); // tạo quái vật mới cho level kế tiếp
+            } else {
+                // Nếu thắng cả 3 level thì kết thúc game với chiến thắng
+                return true;
+            }
+        }
 
         return player.destroyed || score < 0;
     }
