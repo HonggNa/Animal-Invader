@@ -19,6 +19,8 @@ import project.animalkilling.entities.Animal;
 import project.animalkilling.entities.Player;
 import project.animalkilling.entities.AnimalBullet;
 import project.animalkilling.entities.PlayerBullet;
+import project.animalkilling.levels.LevelBuilder;
+import project.animalkilling.levels.Level01;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -170,27 +172,13 @@ public class GameController extends SceneController{
         liveTicks = 5;
         playerScore = 0;
         animalScore = 0;
-        shapeAnimal();
+        LevelBuilder level = new Level01(AnimalImg);
+        AnimalContainer = level.buildLevel();
         //The IntStream.range() method is used to generate a sequence of integers from 0 to maxAnimal - 1.
         //For each integer in the sequence, a new animal object is created using the newAnimal() method.
         //Then each get added to the animal ArrayList using the forEach() method.
     }
 
-    //Shaping animal
-    private void shapeAnimal() {
-        int startX = 225;
-        int startY = 0;
-        int gap = 15;
-        int size = 34;
-        Image animalImg = AnimalImg[RAND.nextInt(AnimalImg.length)];
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 10; col++) {
-                int x = startX + col * (size + gap);
-                int y = startY + row * (size + gap);
-                AnimalContainer.add(new Animal(x, y, size, animalImg));
-            }
-        }
-    }
 
     //--Run Graphics
     public boolean run(GraphicsContext gc) throws IOException {
