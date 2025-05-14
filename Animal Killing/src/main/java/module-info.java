@@ -7,4 +7,6 @@ module project.animalkilling {
     exports project.animalkilling;
     exports project.animalkilling.entities;
     opens project.animalkilling.entities to javafx.fxml;
+    exports project.animalkilling.levels;
+    opens project.animalkilling.levels to javafx.fxml;
 }
